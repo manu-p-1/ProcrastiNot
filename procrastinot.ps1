@@ -67,7 +67,7 @@ foreach($line in $lines)
 		ShowError "The .pn file contains a duplicate name label on line ${ctr}. The process will continue and ignore this line."
 		continue
 	} else {
-		$names.Add($components[0])
+		[void]$names.Add($components[0])
 	}
 
 	# Component names

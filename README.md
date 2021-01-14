@@ -38,7 +38,7 @@ The last component comprises of the Zoom conference URL. This URL may or may not
 # Execution
 Run the script **ONCE** by running the following command on PowerShell:
 ```powershell
-.\sched.ps1 .\mymeetings.pn C:\Users\Manu\AppData\Roaming\Zoom\bin\Zoom.exe
+.\procrastinot.ps1 .\mymeetings.pn C:\Users\Manu\AppData\Roaming\Zoom\bin\Zoom.exe
 ```
 The argument are:  
 1. The name of the script or the **absolute** path to the script

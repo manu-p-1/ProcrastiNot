@@ -45,7 +45,7 @@ The argument are:
 2. The **absolute** path to your `.pn` file
 3. The **absolute** path to your Zoom .exe file (most of the time it's under your APPDATA or as a desktop shortcut)
 
-# Reccommendations
+# Recommendations
 It is **HIGHLY RECOMMENDED**, and I **mean it**, that you set your zoom settings to turn **Video off on start** and **Microphone muted on start**.
 The script **DOES NOT** open your browser, rather, it directly connects you to your zoom meeting. To view if your video and microphone are disabled
 on start, read the following:

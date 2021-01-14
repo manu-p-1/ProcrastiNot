@@ -33,7 +33,7 @@ Days of week are separated by a forward slash. **Acceptable days of the week onl
 The days of the week are case-insensitive
 
 ### Zoom Link
-The last component comprises of the Zoom conference URL
+The last component comprises of the Zoom conference URL. This URL may or may not contain the hashed password.
 
 # Execution
 Run the script **ONCE** by running the following command on PowerShell:
@@ -41,9 +41,9 @@ Run the script **ONCE** by running the following command on PowerShell:
 .\sched.ps1 .\mymeetings.pn C:\Users\Manu\AppData\Roaming\Zoom\bin\Zoom.exe
 ```
 The argument are:  
-1. The name of the script
-2. The **full** path to your `.pn` file
-3. The **full** path to your Zoom .exe file (most of the time it's under your APPDATA or as a desktop shortcut)
+1. The name of the script or the **absolute** path to the script
+2. The **absolute** path to your `.pn` file
+3. The **absolute** path to your Zoom .exe file (most of the time it's under your APPDATA or as a desktop shortcut)
 
 # Reccommendations
 It is **HIGHLY RECOMMENDED**, and I **mean it**, that you set your zoom settings to turn **Video off on start** and **Microphone muted on start**.

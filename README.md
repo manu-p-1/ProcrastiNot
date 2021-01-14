@@ -67,13 +67,13 @@ on start, read the following:
 <!---![Picture of the mic disable option](assets/Pic4.PNG) -->
 
 # Removing Tasks
-To remove all tasks when you don't need them, run the following command on PowerShell:
+To **remove all tasks** when you don't need them, run the following command on PowerShell:
 
 ```powershell
 Get-ScheduledTask "ProcrastiNot_TASK__*" | Unregister-ScheduledTask
 ```
 
-To remove only one task, run the following command on PowerShell:
+To **remove only one** task, run the following command on PowerShell:
 ```
  Get-ScheduledTask "ProcrastiNot_TASK__{name}" | Unregister-ScheduledTask
 ```

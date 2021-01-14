@@ -45,6 +45,23 @@ The argument are:
 2. The **full** path to your `.pn` file
 3. The **full** path to your Zoom .exe file (most of the time it's under your APPDATA or as a desktop shortcut)
 
+# Reccommendations
+It is **HIGHLY RECOMMENDED**, and I **mean it**, that you set your zoom settings to turn **Video off on start** and **Microphone muted on start**.
+The script **DOES NOT** open your browser, rather, it directly connects you to your zoom meeting. To view if your video and microphone are disabled
+on start, read the following:
+
+1. Open Zoom  
+![Picture of opening Zoom](assets/Pic1.png)
+
+2. Right click on the Zoom icon on the bottom left of the taskbar and click the *Settings...* option
+![Picture of right clicking on the Zoom settings](assets/Pic2.png)
+
+3. Under the *Video* menu, check the option that says *Turn off my video when joining meeting*
+![Picture of the video disable option](assets/Pic3.png)
+
+4. Under the *Audio* menu, check the option that says *Mute my microphone when joining a meeting*
+![Picture of the mic disable option](assets/Pic4.png)
+
 # Removing Tasks
 To remove all tasks when you don't need them, run the following command on PowerShell:
 

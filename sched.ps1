@@ -38,7 +38,7 @@ try{
 	ShowError "The .pn file provided could not be found or opened" $true
 }
 
-# Load the names into a hashtable and check for any duplicates
+# Load the abbrevations into a hashtable
 $dowAbbrevToFull = @{
 	Mon = [System.DayOfWeek]::Monday;
 	Tue = [System.DayOfWeek]::Tuesday;
@@ -49,7 +49,7 @@ $dowAbbrevToFull = @{
 	Sun = [System.DayOfWeek]::Sunday
 }
 
-$names = @{}
+$names = [System.Collections.ArrayList]@()
 $ctr = 0
 foreach($line in $lines)
 {
@@ -57,13 +57,17 @@ foreach($line in $lines)
 	if(-not $line){ 
 		continue
 	}
+
+	# Load the names into a hashtable and check for any duplicates
 	$components = $line -Split ","
 	if(-not $components.Length -eq 4){
 		ShowError "The .pn file is improperly formatted" $true
 	}
-	if($names.ContainsKey($components[0])){
+	if($names -contains $components[0]){
 		ShowError "The .pn file contains a duplicate name label on line ${ctr}. The process will continue and ignore this line."
 		continue
+	} else {
+		$names.Add($components[0])
 	}
 
 	# Component names

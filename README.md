@@ -51,16 +51,16 @@ The script **DOES NOT** open your browser, rather, it directly connects you to y
 on start, read the following:
 
 1. Open Zoom  
-![Picture of opening Zoom](assets/Pic1.png)
+![Picture of opening Zoom](assets/Pic1.PNG)
 
 2. Right click on the Zoom icon on the bottom left of the taskbar and click the *Settings...* option
-![Picture of right clicking on the Zoom settings](assets/Pic2.png)
+![Picture of right clicking on the Zoom settings](assets/Pic2.PNG)
 
 3. Under the *Video* menu, check the option that says *Turn off my video when joining meeting*
-![Picture of the video disable option](assets/Pic3.png)
+![Picture of the video disable option](assets/Pic3.PNG)
 
 4. Under the *Audio* menu, check the option that says *Mute my microphone when joining a meeting*
-![Picture of the mic disable option](assets/Pic4.png)
+![Picture of the mic disable option](assets/Pic4.PNG)
 
 # Removing Tasks
 To remove all tasks when you don't need them, run the following command on PowerShell:

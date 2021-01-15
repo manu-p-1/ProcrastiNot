@@ -27,11 +27,24 @@ The label must be unique. If you have two meetings of the same category with dif
 The time **must** be in the format `H:MM AM/PM`. The space between the minute and AM/PM designator is **required**
 
 ### Days of week
-Days of week are separated by a forward slash. **Acceptable days of the week only are**:
+Days of week are separated by a forward slash and are case-insensitive. **Acceptable days of the week only are**:
 
 ```Mon, Tue, Wed, Thu, Fri, Sat, Sun```
 
-The days of the week are case-insensitive
+Another cool feature are multi-day characters. Instead of writing all days of the week, you can input a singular supported character. The complete list is shown below:
+
+| Character     | Value                         |
+| -----------   | -----------                   |
+| *             | Mon/Tue/Wed/Thu/Fri           |
+| **            | Mon/Tue/Wed/Thu/Fri/Sat/Sun   |
+| $             | Mon/Wed/Fri                   |
+| $$            | Tue/Thu                       |
+| !             | Sat/Sun                       |
+
+Here is an example of a definition line:
+```
+Finance, 9:10 AM, *, https://zoom.us/j/92990464842?pwd=TDZmWmsadskdFASKDJasdkaB1bkhFUT09
+```
 
 ### Zoom Link
 The last component comprises of the Zoom conference URL. Some meetings may have a password, however, most Zoom links already contain the hashed password. If your link contains `?pwd=` you should be good to go! If it doesn't, it most likely means the conference does not have a password.

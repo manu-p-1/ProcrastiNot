@@ -61,7 +61,7 @@ foreach($line in $lines)
 	}
 
 	# Load the names into a hashtable and check for any duplicates
-	$components = $line -Split ","
+	$components = $line -split ","
 	if(-not $components.Length -eq 4){
 		ShowError "The .txt file is improperly formatted" $true
 	}
@@ -87,11 +87,35 @@ foreach($line in $lines)
 	}
 
 	# Schedule Day of Week
-	$days = $cmp_day.Split("/")
+	$cmp_day = $cmp_day -replace '\s',''
+	if($cmp_day -match "^([*])$"){
+		$cmp_day = $cmp_day.Replace("*", "Mon/Tue/Wed/Thu/Fri")
+	}
+	if($cmp_day -match "^([*][*])$"){
+		$cmp_day = $cmp_day.Replace("**", "Mon/Tue/Wed/Thu/Fri/Sat/Sun")
+	}
+	if($cmp_day -match "^([$])$"){
+		$cmp_day = $cmp_day.Replace("$", "Mon/Wed/Fri")
+	}
+	if($cmp_day -match "^([$][$])$"){
+		$cmp_day = $cmp_day.Replace("$$", "Tue/Thu")
+	}
+	if($cmp_day -match "^([!])$"){
+		$cmp_day = $cmp_day.Replace("ends", "Sat/Sun")
+	}
+
+	$cmp_day = $cmp_day.Replace("//", "/")
+	$days = $cmp_day -split "/"
+
 	$days = $days | Select-Object -Unique | ForEach-Object {
 		$trimmed = $_.Trim()
 		$tx = (Get-Culture).TextInfo.ToTitleCase($trimmed)
-		$dowAbbrevToFull[$tx]
+		try{
+			$dowAbbrevToFull[$tx]
+		} catch{
+			ShowError "The .txt file contains a day of week. The process will continue and ignore this line."
+			continue
+		}
 	} 
 
 	foreach($day in $days){

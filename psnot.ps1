@@ -1,13 +1,15 @@
 <#
-Filename: sched.ps1
+Filename: psnot.ps1
 Author: Manu P.
 
-This file runs the ProcrastiNot script as mentioned in the README.md file
+This file runs the ProcrastiNot script as mentioned in the README.md file.
+To Unregister all ProcrastiNot tasks, type the following piece of code into your PowerShell:
+Get-ScheduledTask "ProcrastiNot_TASK__*" | Unregister-ScheduledTask
 #>
 
 param (
-	[Parameter(Mandatory=$true)][string]$Filename,
-	[Parameter(Mandatory=$true)][string]$ZoomExe
+	[Parameter()][string]$Filename=(Join-Path $PSScriptRoot ".\sched.txt"),
+	[Parameter()][string]$ZoomExe=([System.IO.Path]::GetFullPath([Environment]::GetFolderPath('ApplicationData') + "\Zoom\bin\Zoom.exe"))
 )
 
 <#
@@ -26,16 +28,16 @@ function ShowError([string]$msg, [bool]$exit_prog=$false){
 }
 
 # Check the Filename
-if (-not $Filename.endswith(".pn") )
+if (-not $Filename.endswith(".txt") )
 {
-	ShowError "The Filename was not recognized. A .pn file must be provided" $true
+	ShowError "The Filename was not recognized. A .txt file must be provided" $true
 }
 
 # Open the file and read contents
 try{
 	$lines = [System.IO.File]::ReadLines($Filename)
 } catch [System.Management.Automation.MethodInvocationException], [System.IO.IOException]{
-	ShowError "The .pn file provided could not be found or opened" $true
+	ShowError "The .txt file provided could not be found or opened" $true
 }
 
 # Load the abbrevations into a hashtable
@@ -61,10 +63,10 @@ foreach($line in $lines)
 	# Load the names into a hashtable and check for any duplicates
 	$components = $line -Split ","
 	if(-not $components.Length -eq 4){
-		ShowError "The .pn file is improperly formatted" $true
+		ShowError "The .txt file is improperly formatted" $true
 	}
 	if($names -contains $components[0]){
-		ShowError "The .pn file contains a duplicate name label on line ${ctr}. The process will continue and ignore this line."
+		ShowError "The .txt file contains a duplicate name label on line ${ctr}. The process will continue and ignore this line."
 		continue
 	} else {
 		[void]$names.Add($components[0])
@@ -80,7 +82,7 @@ foreach($line in $lines)
 	try{
 		$startTime = Get-Date -Date $cmp_time
 	} catch {
-		ShowError "The .pn file contains a malformed date ${ctr}. The process will continue and ignore this line."
+		ShowError "The .txt file contains a malformed date ${ctr}. The process will continue and ignore this line."
 		continue
 	}
 
@@ -96,7 +98,14 @@ foreach($line in $lines)
 		# Schedule Name
 		$schedName = "ProcrastiNot_TASK__$($cmp_name)_$($day)"
 
-		# Schedule link
+		# Task Precheck
+		$taskExists = Get-ScheduledTask | Where-Object {$_.TaskName -eq $schedName }
+		if($taskExists) {
+			Write-Host "The Task: $($schedName) already exists" 
+			continue
+		}
+
+		# Schedule Link
 		$schedLink = $cmp_link
 
 		# Task Action
@@ -109,28 +118,18 @@ foreach($line in $lines)
 						-At $startTime 
 		
 		# Task Desc.
-		$description = "ProcrastiNot Zoom Starter Information: Date:$($startTime.ToString('h:mm tt')), Zoom:$($schedLink)"
+		$description = "ProcrastiNot Zoom Starter Information --- Date: $($startTime.ToString('h:mm tt')), Zoom: $($schedLink)"
 
-		# Task Existence
-		$taskExists = Get-ScheduledTask | Where-Object {$_.TaskName -eq $schedName }
-		
-		if(-Not $taskExists) {
-			# Task Register
-			try{
-				Register-ScheduledTask `
-					-TaskName $schedName `
-					-Action $taskAction `
-					-Trigger $taskTrigger `
-					-Description $description
-				}
-			catch{
-				ShowError "The task could not be created. Check your privelages" $true
+		# Task Register
+		try{
+			Register-ScheduledTask `
+				-TaskName $schedName `
+				-Action $taskAction `
+				-Trigger $taskTrigger `
+				-Description $description
 			}
+		catch{
+			ShowError "The task could not be created. Check your privelages" $true
 		}
 	}
 }
-
-<# 
-To Unregister, type this into PowerShell:
-Get-ScheduledTask "ProcrastiNot_TASK__*" | Unregister-ScheduledTask
-#>

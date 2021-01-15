@@ -95,4 +95,4 @@ Each task name is given as:
 Updating tasks is not necessarily straightforward through the command line. It's best to use the GUI task scheduler to do this. To open the Windows Task Scheduler, type: `Win + R` then `taskschd.msc`. You can refresh on the sidebar and order tasks by name.
 
 # Acknowledgements
-Thanks to [Sam Yuen](https://github.com/ssyuen) for this great idea. We've finally added another [automation hack](https://stephenhaunts.files.wordpress.com/2015/09/4.gif).
+Thanks to [Sam Yuen](https://github.com/ssyuen) for this great idea. We've finally added another <a href=https://stephenhaunts.files.wordpress.com/2015/09/4.gif target="_blank">automation hack</a>.

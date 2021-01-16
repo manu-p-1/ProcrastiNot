@@ -27,6 +27,11 @@ function ShowError([string]$msg, [bool]$exit_prog=$false){
 	}
 }
 
+# Check .pn in case and provide friendly warning
+if ($Filename.EndsWith(".pn")){
+	ShowError "Support for .pn files ended with version 1.0.0. Download a more recent version" $true
+}
+
 # Check the Filename
 if (-not $Filename.endswith(".txt") )
 {
@@ -138,7 +143,7 @@ foreach($line in $lines)
 		# Task Trigger
 		$taskTrigger = New-ScheduledTaskTrigger `
 						-Weekly `
-						-DaysOfWeek $days `
+						-DaysOfWeek $day `
 						-At $startTime 
 		
 		# Task Desc.
